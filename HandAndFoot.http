@@ -1,0 +1,6 @@
+@HandAndFoot_HostAddress = http://localhost:5082
+
+GET {{HandAndFoot_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
