@@ -9,7 +9,8 @@ namespace HandAndFoot.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
-        IPlayerService _playerService;
+
+        private readonly IPlayerService _playerService;
         public PlayerController(IPlayerService playerService) { _playerService = playerService; }
 
 
@@ -40,6 +41,28 @@ namespace HandAndFoot.Controllers
             oPlayer = _playerService.AddPlayer(oPlayer);
 
             return Ok(oPlayer);
+        }
+
+        [HttpPut]
+        public IActionResult UpdatePlayer(int playerId, PlayerDTO playerDTO)
+        {
+            
+            var oPlayer = _playerService.GetPlayer(playerId);
+
+            oPlayer.Name = playerDTO.Name;
+            oPlayer.NickName = playerDTO.NickName;
+
+            oPlayer = _playerService.UpdatePlayer(oPlayer);
+
+            return Ok(oPlayer);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletePlayer(int id)
+        {
+            _playerService.DeletePlayer(id);
+
+            return Ok();
         }
 
     }
