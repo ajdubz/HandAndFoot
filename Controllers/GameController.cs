@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HandAndFoot.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class GameController : ControllerBase
     {
@@ -29,26 +29,30 @@ namespace HandAndFoot.Controllers
             return Ok(_gameService.GetGame(id));
         }
 
-        [HttpPost]
-        public IActionResult AddGame(GameDTO gameDTO)
-        {
-            var game = new Game();
-            game.Teams = gameDTO.Teams;
+        //[HttpPost]
+        //public IActionResult AddGame(GameDTO gameDTO)
+        //{
+        //    var game = new Game();
+        //    game.Teams = gameDTO.Teams;
 
-            return Ok(_gameService.AddGame(game));
-        }
+        //    _gameService.AddGame(game);
+
+        //    return Ok("Added Successfully");
+        //}
 
         [HttpPut("{id}")]
         public IActionResult UpdateGame(Game game)
         {
-            return Ok(_gameService.UpdateGame(game));
+            _gameService.UpdateGame(game);
+            return Ok("Updated Successfully");
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteGame(int id)
         {
             _gameService.DeleteGame(id);
-            return Ok();
+
+            return Ok("Deleted Successfully");
         }
     }
 }

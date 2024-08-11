@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HandAndFoot.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class TeamController : ControllerBase
     {
@@ -31,38 +31,40 @@ namespace HandAndFoot.Controllers
             return Ok(_teamService.GetTeam(id));
         }
 
-        [HttpPost]
-        public IActionResult AddTeam(TeamDTO teamDTO)
+        //[HttpPost]
+        //public IActionResult AddTeam(TeamDTO teamDTO)
+        //{
+        //    var team = new Team();
+        //    team.Name = teamDTO.Name;
+
+        //    var oListIds = teamDTO.PlayerIds.ToList();
+
+        //    foreach (var id in oListIds)
+        //    {
+        //        var player = _playerService.GetPlayer(id);
+        //        if (player != null)
+        //        {
+        //            team.Players.Add(player);
+        //        }
+        //    }
+
+        //    _teamService.AddTeam(team);
+
+        //    return Ok("Added Successfully");
+        //}
+
+        [HttpPut]
+        public IActionResult UpdateTeam(Team team)
         {
-            var team = new Team();
-            team.Name = teamDTO.Name;
-
-            var oListIds = teamDTO.PlayerIds.ToList();
-
-            foreach (var id in oListIds)
-            {
-                var player = _playerService.GetPlayer(id);
-                if (player != null)
-                {
-                    team.Players.Add(player);
-                }
-            }
-
-            return Ok(_teamService.AddTeam(team));
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateTeam(int id)
-        {
-
-            return Ok(_teamService.UpdateTeam(id));
+            _teamService.UpdateTeam(team);
+            return Ok("Updated Successfully");
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteTeam(int id)
         {
             _teamService.DeleteTeam(id);
-            return Ok();
+            return Ok("Deleted Successfully");
         }
     }
 }

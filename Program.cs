@@ -14,7 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-string constr = "database=HandAndFoot;server=adubzpc; Trusted_Connection=true;TrustServerCertificate=true;";
+string constr = "database=HandFootScoring;server=adubzpc; Trusted_Connection=true;TrustServerCertificate=true;";
 
 
 builder.Services.AddDbContext<Data>(op =>

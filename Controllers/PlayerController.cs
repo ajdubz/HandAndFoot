@@ -19,7 +19,7 @@ namespace HandAndFoot.Controllers
         {
             var oList = _playerService.GetPlayers();
 
-            return Ok(oList);
+            return Ok(oList.ToList());
         }
 
         [HttpGet("{id}")]
@@ -31,30 +31,26 @@ namespace HandAndFoot.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddPlayer(PlayerDTO playerDTO)
+        public IActionResult AddPlayer(PlayerCreateDTO PlayerCreateDTO)
         {
             var oPlayer = new Player();
 
-            oPlayer.Name = playerDTO.Name;
-            oPlayer.NickName = playerDTO.NickName;
+            oPlayer.NickName = PlayerCreateDTO.NickName;
+            oPlayer.Email = PlayerCreateDTO.Email;
+            oPlayer.Password = PlayerCreateDTO.Password;
 
-            oPlayer = _playerService.AddPlayer(oPlayer);
+            _playerService.AddPlayer(oPlayer);
 
-            return Ok(oPlayer);
+            return Ok("Added Successfully");
         }
 
         [HttpPut]
-        public IActionResult UpdatePlayer(int playerId, PlayerDTO playerDTO)
+        public IActionResult UpdatePlayer(Player player)
         {
-            
-            var oPlayer = _playerService.GetPlayer(playerId);
 
-            oPlayer.Name = playerDTO.Name;
-            oPlayer.NickName = playerDTO.NickName;
+            _playerService.UpdatePlayer(player);
 
-            oPlayer = _playerService.UpdatePlayer(oPlayer);
-
-            return Ok(oPlayer);
+            return Ok("Updated Successfully");
         }
 
         [HttpDelete("{id}")]
@@ -62,7 +58,7 @@ namespace HandAndFoot.Controllers
         {
             _playerService.DeletePlayer(id);
 
-            return Ok();
+            return Ok("Deleted Successfully");
         }
 
     }
