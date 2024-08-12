@@ -31,13 +31,14 @@ namespace HandAndFoot.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddPlayer(PlayerCreateDTO PlayerCreateDTO)
+        public IActionResult AddPlayer(PlayerCreateDTO playerCreateDTO)
         {
-            var oPlayer = new Player();
-
-            oPlayer.NickName = PlayerCreateDTO.NickName;
-            oPlayer.Email = PlayerCreateDTO.Email;
-            oPlayer.Password = PlayerCreateDTO.Password;
+            var oPlayer = new Player
+            {
+                NickName = playerCreateDTO.NickName,
+                Email = playerCreateDTO.Email,
+                Password = playerCreateDTO.Password,
+            };
 
             _playerService.AddPlayer(oPlayer);
 
