@@ -22,10 +22,26 @@ namespace HandAndFoot.Controllers
             return Ok(oList.ToList());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public IActionResult GetPlayer(int id)
         {
             var oPlayer = _playerService.GetPlayer(id);
+
+            return Ok(oPlayer);
+        }
+
+        [HttpGet("Players")]
+        public IActionResult GetPlayersWithFriends()
+        {
+            var oList = _playerService.GetPlayersWithFriends();
+
+            return Ok(oList.ToList());
+        }
+
+        [HttpGet("Players/{id:int}")]
+        public IActionResult GetPlayerWithFriends(int id)
+        {
+            var oPlayer = _playerService.GetPlayerWithFriends(id);
 
             return Ok(oPlayer);
         }
@@ -46,20 +62,37 @@ namespace HandAndFoot.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdatePlayer(Player player)
+        public IActionResult UpdatePlayer(PlayerUpdateDTO playerUpdateDTO)
         {
 
-            _playerService.UpdatePlayer(player);
+            _playerService.UpdatePlayer(playerUpdateDTO);
 
             return Ok("Updated Successfully");
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeletePlayer(int id)
+        [HttpDelete("{id:int}")]
+        public IActionResult RemovePlayer(int id)
         {
-            _playerService.DeletePlayer(id);
+            _playerService.RemovePlayer(id);
 
-            return Ok("Deleted Successfully");
+            return Ok("Removed Successfully");
+        }
+
+        [HttpPost(nameof(AddFriend))]
+        public IActionResult AddFriend(PlayerFriendBasicDTO playerFriend)
+        {
+
+            _playerService.AddFriend(playerFriend.PlayerId, playerFriend.FriendId);
+
+            return Ok("Added Successfully");
+        }
+
+        [HttpDelete(nameof(RemoveFriend))]
+        public IActionResult RemoveFriend(PlayerFriendBasicDTO playerFriend)
+        {
+            _playerService.RemoveFriend(playerFriend.PlayerId, playerFriend.FriendId);
+
+            return Ok("Removed Successfully");
         }
 
     }
