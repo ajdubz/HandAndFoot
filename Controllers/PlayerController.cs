@@ -1,7 +1,7 @@
 ﻿using HandFootLib.Services.Interfaces;
 using HandFootLib.Models;
 using Microsoft.AspNetCore.Mvc;
-using HandFootLib.Models.DTOs;
+using HandFootLib.Models.DTOs.Player;
 
 namespace HandAndFoot.Controllers
 {
