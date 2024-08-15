@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandAndFoot", "HandAndFoot.csproj", "{003B709D-5914-44B0-9916-0CDCBBDBF38E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandAndFoot", "HandAndFoot.csproj", "{003B709D-5914-44B0-9916-0CDCBBDBF38E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandFootLib", "..\HandFootLib\HandFootLib.csproj", "{1AD1ACDE-2FCE-4D5A-BD05-228A592D8378}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandFootLib", "..\HandFootLib\HandFootLib.csproj", "{1AD1ACDE-2FCE-4D5A-BD05-228A592D8378}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "HandAndFootApp", "..\HandAndFootApp\HandAndFootApp.esproj", "{C054799E-2603-4B01-9E2C-80DBB74F64C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,12 @@ Global
 		{1AD1ACDE-2FCE-4D5A-BD05-228A592D8378}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AD1ACDE-2FCE-4D5A-BD05-228A592D8378}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AD1ACDE-2FCE-4D5A-BD05-228A592D8378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C054799E-2603-4B01-9E2C-80DBB74F64C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C054799E-2603-4B01-9E2C-80DBB74F64C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C054799E-2603-4B01-9E2C-80DBB74F64C2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C054799E-2603-4B01-9E2C-80DBB74F64C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C054799E-2603-4B01-9E2C-80DBB74F64C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C054799E-2603-4B01-9E2C-80DBB74F64C2}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

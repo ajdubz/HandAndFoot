@@ -12,15 +12,13 @@ namespace HandAndFoot.Controllers
     public class TeamController : ControllerBase
     {
         private readonly ITeamService _teamService;
-        //private readonly IPlayerService _playerService;
 
-        public TeamController(ITeamService teamService, IPlayerService playerService)
+        public TeamController(ITeamService teamService)
         {
             _teamService = teamService;
-            //_playerService = playerService;
         }
 
-        [HttpGet]
+        [HttpGet]   
         public IActionResult GetTeams()
         {
             return Ok(_teamService.GetTeams());
@@ -48,10 +46,24 @@ namespace HandAndFoot.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public IActionResult DeleteTeam(int id)
+        public IActionResult RemoveTeam(int id)
         {
             _teamService.RemoveTeam(id);
             return Ok("Deleted Successfully");
+        }
+
+        [HttpPut("AddPlayerToTeam")]
+        public IActionResult AddPlayerToTeam(int playerId, int teamId)
+        {
+            _teamService.AddPlayerToTeam(playerId, teamId);
+            return Ok("Added Successfully");
+        }
+
+        [HttpPut("RemovePlayerFromTeam")]
+        public IActionResult RemovePlayerFromTeam(int playerId, int teamId)
+        {
+            _teamService.RemovePlayerFromTeam(playerId, teamId);
+            return Ok("Removed Successfully");
         }
     }
 }

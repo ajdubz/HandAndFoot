@@ -17,42 +17,42 @@ namespace HandAndFoot.Controllers
             _gameService = gameService;
         }
 
-        [HttpGet]
-        public IActionResult GetGames()
-        {
-            return Ok(_gameService.GetGames());
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetGame(int id)
-        {
-            return Ok(_gameService.GetGame(id));
-        }
-
-        //[HttpPost]
-        //public IActionResult AddGame(GameDTO gameDTO)
+        //[HttpGet]
+        //public IActionResult GetGames()
         //{
-        //    var game = new Game();
-        //    game.Teams = gameDTO.Teams;
-
-        //    _gameService.AddGame(game);
-
-        //    return Ok("Added Successfully");
+        //    return Ok(_gameService.GetGames());
         //}
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateGame(Game game)
-        {
-            _gameService.UpdateGame(game);
-            return Ok("Updated Successfully");
-        }
+        //[HttpGet("{id}")]
+        //public IActionResult GetGame(int id)
+        //{
+        //    return Ok(_gameService.GetGame(id));
+        //}
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteGame(int id)
-        {
-            _gameService.DeleteGame(id);
+        ////[HttpPost]
+        ////public IActionResult AddGame(GameDTO gameDTO)
+        ////{
+        ////    var game = new Game();
+        ////    game.Teams = gameDTO.Teams;
 
-            return Ok("Deleted Successfully");
-        }
+        ////    _gameService.AddGame(game);
+
+        ////    return Ok("Added Successfully");
+        ////}
+
+        //[HttpPut("{id}")]
+        //public IActionResult UpdateGame(Game game)
+        //{
+        //    _gameService.UpdateGame(game);
+        //    return Ok("Updated Successfully");
+        //}
+
+        //[HttpDelete("{id}")]
+        //public IActionResult DeleteGame(int id)
+        //{
+        //    _gameService.DeleteGame(id);
+
+        //    return Ok("Deleted Successfully");
+        //}
     }
 }
