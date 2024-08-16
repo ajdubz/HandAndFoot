@@ -25,22 +25,6 @@ namespace HandAndFoot.Controllers
         [HttpGet("{id:int}")]
         public IActionResult GetPlayer(int id)
         {
-            var oPlayer = _playerService.GetPlayer(id);
-
-            return Ok(oPlayer);
-        }
-
-        [HttpGet("Players")]
-        public IActionResult GetPlayersWithFriends()
-        {
-            var oList = _playerService.GetPlayersWithFriends();
-
-            return Ok(oList.ToList());
-        }
-
-        [HttpGet("Players/{id:int}")]
-        public IActionResult GetPlayerWithFriends(int id)
-        {
             var oPlayer = _playerService.GetPlayerWithFriends(id);
 
             return Ok(oPlayer);
