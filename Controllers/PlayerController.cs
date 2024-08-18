@@ -42,7 +42,7 @@ namespace HandAndFoot.Controllers
 
             _playerService.AddPlayer(oPlayer);
 
-            return Ok("Added Successfully");
+            return Ok(StatusCode(200));
         }
 
         [HttpPut]
