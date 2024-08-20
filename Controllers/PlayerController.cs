@@ -17,66 +17,117 @@ namespace HandAndFoot.Controllers
         [HttpGet]
         public IActionResult GetPlayers()
         {
-            var oList = _playerService.GetPlayers();
-
-            return Ok(oList.ToList());
+            try
+            {
+                var oList = _playerService.GetPlayers();
+                return Ok(oList.ToList());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpGet("{id:int}")]
         public IActionResult GetPlayer(int id)
         {
-            var oPlayer = _playerService.GetPlayerWithFriends(id);
-
-            return Ok(oPlayer);
-        }
-
-        [HttpPost]
-        public IActionResult AddPlayer(PlayerCreateDTO playerCreateDTO)
-        {
-            var oPlayer = new Player
+            try
             {
-                NickName = playerCreateDTO.NickName,
-                Email = playerCreateDTO.Email,
-                Password = playerCreateDTO.Password,
-            };
-
-            _playerService.AddPlayer(oPlayer);
-
-            return Ok(StatusCode(200));
+                var oPlayer = _playerService.GetPlayer(id);
+                if (oPlayer == null)
+                {
+                    return NotFound();
+                }
+                return Ok(oPlayer);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+
+
 
         [HttpPut]
         public IActionResult UpdatePlayer(PlayerUpdateDTO playerUpdateDTO)
         {
-
-            _playerService.UpdatePlayer(playerUpdateDTO);
-
-            return Ok("Updated Successfully");
+            try
+            {
+                _playerService.UpdatePlayer(playerUpdateDTO);
+                return Ok("Updated Successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
-        [HttpDelete("{id:int}")]
-        public IActionResult RemovePlayer(int id)
-        {
-            _playerService.RemovePlayer(id);
 
-            return Ok("Removed Successfully");
+
+        [HttpPost]
+        public IActionResult AddPlayer(PlayerCreateDTO playerCreateDTO)
+        {
+            try
+            {
+                var oPlayer = new Player
+                {
+                    NickName = playerCreateDTO.NickName,
+                    Email = playerCreateDTO.Email,
+                    Password = playerCreateDTO.Password,
+                };
+
+                _playerService.AddPlayer(oPlayer);
+
+                return Ok(StatusCode(200));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPost(nameof(AddFriend))]
         public IActionResult AddFriend(PlayerFriendBasicDTO playerFriend)
         {
+            try
+            {
+                _playerService.AddFriend(playerFriend.PlayerId, playerFriend.FriendId);
+                return Ok("Added Successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
-            _playerService.AddFriend(playerFriend.PlayerId, playerFriend.FriendId);
 
-            return Ok("Added Successfully");
+
+        [HttpDelete("{id:int}")]
+        public IActionResult RemovePlayer(int id)
+        {
+            try
+            {
+                _playerService.RemovePlayer(id);
+                return Ok("Removed Successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete(nameof(RemoveFriend))]
         public IActionResult RemoveFriend(PlayerFriendBasicDTO playerFriend)
         {
-            _playerService.RemoveFriend(playerFriend.PlayerId, playerFriend.FriendId);
-
-            return Ok("Removed Successfully");
+            try
+            {
+                _playerService.RemoveFriend(playerFriend.PlayerId, playerFriend.FriendId);
+                return Ok("Removed Successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
     }

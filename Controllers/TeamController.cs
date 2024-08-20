@@ -18,6 +18,7 @@ namespace HandAndFoot.Controllers
             _teamService = teamService;
         }
 
+
         [HttpGet]   
         public IActionResult GetTeams()
         {
@@ -30,6 +31,8 @@ namespace HandAndFoot.Controllers
             return Ok(_teamService.GetTeam(id));
         }
 
+        
+        
         [HttpPost]
         public IActionResult AddTeam(TeamCreateDTO teamDTO)
         {
@@ -45,12 +48,7 @@ namespace HandAndFoot.Controllers
             return Ok("Updated Successfully");
         }
 
-        [HttpDelete("{id:int}")]
-        public IActionResult RemoveTeam(int id)
-        {
-            _teamService.RemoveTeam(id);
-            return Ok("Deleted Successfully");
-        }
+
 
         [HttpPut("AddPlayerToTeam")]
         public IActionResult AddPlayerToTeam(int playerId, int teamId)
@@ -64,6 +62,15 @@ namespace HandAndFoot.Controllers
         {
             _teamService.RemovePlayerFromTeam(playerId, teamId);
             return Ok("Removed Successfully");
+        }
+        
+
+        
+        [HttpDelete("{id:int}")]
+        public IActionResult RemoveTeam(int id)
+        {
+            _teamService.RemoveTeam(id);
+            return Ok("Deleted Successfully");
         }
     }
 }
