@@ -11,15 +11,16 @@ namespace HandAndFoot.Controllers
     {
 
         private readonly IPlayerService _playerService;
-        public PlayerController(IPlayerService playerService) { _playerService = playerService; }
+        public PlayerController(IPlayerService playerService) => _playerService = playerService;
 
 
         [HttpGet]
-        public IActionResult GetPlayers()
+        public IActionResult GetPlayersBasic()
         {
             try
             {
-                var oList = _playerService.GetPlayers();
+                var oList = _playerService.GetPlayersBasic();
+
                 return Ok(oList.ToList());
             }
             catch (Exception ex)
@@ -29,15 +30,17 @@ namespace HandAndFoot.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult GetPlayer(int id)
+        public IActionResult GetPlayerDetails(int id)
         {
             try
             {
                 var oPlayer = _playerService.GetPlayer(id);
+
                 if (oPlayer == null)
                 {
                     return NotFound();
                 }
+
                 return Ok(oPlayer);
             }
             catch (Exception ex)
@@ -47,44 +50,64 @@ namespace HandAndFoot.Controllers
         }
 
 
-
-        [HttpPut]
-        public IActionResult UpdatePlayer(PlayerUpdateDTO playerUpdateDTO)
-        {
-            try
-            {
-                _playerService.UpdatePlayer(playerUpdateDTO);
-                return Ok("Updated Successfully");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-
-
         [HttpPost]
-        public IActionResult AddPlayer(PlayerCreateDTO playerCreateDTO)
+        public IActionResult AddPlayer(PlayerSetAccountDTO playerSetAccountDTO)
         {
             try
             {
-                var oPlayer = new Player
-                {
-                    NickName = playerCreateDTO.NickName,
-                    Email = playerCreateDTO.Email,
-                    Password = playerCreateDTO.Password,
-                };
 
-                _playerService.AddPlayer(oPlayer);
+                _playerService.AddPlayer(playerSetAccountDTO);
 
-                return Ok(StatusCode(200));
+                return Ok();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet("{id:int}/account")]
+        public IActionResult GetPlayerAccount(int id)
+        {
+            try
+            {
+                var oPlayer = _playerService.GetPlayerAccount(id);
+
+                if (oPlayer == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(oPlayer);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // Why [FromBody] here?
+        [HttpPut("{id:int}")]
+        public IActionResult UpdatePlayerAccount(int id,[FromBody] PlayerSetAccountDTO playerSetAccountDTO)
+        {
+
+            try
+            {
+                _playerService.UpdatePlayerAccount(id, playerSetAccountDTO);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                Console.WriteLine(playerSetAccountDTO);
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+
+
+
 
         [HttpPost(nameof(AddFriend))]
         public IActionResult AddFriend(PlayerFriendBasicDTO playerFriend)
@@ -92,7 +115,7 @@ namespace HandAndFoot.Controllers
             try
             {
                 _playerService.AddFriend(playerFriend.PlayerId, playerFriend.FriendId);
-                return Ok("Added Successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -108,7 +131,7 @@ namespace HandAndFoot.Controllers
             try
             {
                 _playerService.RemovePlayer(id);
-                return Ok("Removed Successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -116,13 +139,14 @@ namespace HandAndFoot.Controllers
             }
         }
 
+
         [HttpDelete(nameof(RemoveFriend))]
         public IActionResult RemoveFriend(PlayerFriendBasicDTO playerFriend)
         {
             try
             {
                 _playerService.RemoveFriend(playerFriend.PlayerId, playerFriend.FriendId);
-                return Ok("Removed Successfully");
+                return Ok();
             }
             catch (Exception ex)
             {
