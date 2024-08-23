@@ -29,6 +29,7 @@ namespace HandAndFoot.Controllers
             }
         }
 
+
         [HttpGet("{id:int}")]
         public IActionResult GetPlayerDetails(int id)
         {
@@ -87,8 +88,8 @@ namespace HandAndFoot.Controllers
         }
 
         // Why [FromBody] here?
-        [HttpPut("{id:int}")]
-        public IActionResult UpdatePlayerAccount(int id,[FromBody] PlayerSetAccountDTO playerSetAccountDTO)
+        [HttpPut("{id:int}/account")]
+        public IActionResult UpdatePlayerAccount(int id, PlayerSetAccountDTO playerSetAccountDTO)
         {
 
             try
