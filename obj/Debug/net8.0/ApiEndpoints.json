@@ -11,22 +11,6 @@
   },
   {
     "ContainingType": "HandAndFoot.Controllers.PlayerController",
-    "Method": "AddPlayer",
-    "RelativePath": "Player",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "playerSetAccountDTO",
-        "Type": "HandFootLib.Models.DTOs.Player.PlayerSetAccountDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "HandAndFoot.Controllers.PlayerController",
     "Method": "GetPlayerDetails",
     "RelativePath": "Player/{id}",
     "HttpMethod": "GET",
@@ -86,6 +70,22 @@
         "Type": "System.Int32",
         "IsRequired": true
       },
+      {
+        "Name": "playerSetAccountDTO",
+        "Type": "HandFootLib.Models.DTOs.Player.PlayerSetAccountDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.PlayerController",
+    "Method": "AddPlayer",
+    "RelativePath": "Player/account",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
         "Name": "playerSetAccountDTO",
         "Type": "HandFootLib.Models.DTOs.Player.PlayerSetAccountDTO",

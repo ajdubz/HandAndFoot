@@ -5,7 +5,7 @@ using HandFootLib.Models.DTOs.Player;
 
 namespace HandAndFoot.Controllers
 {
-    [Route("[controller]")]
+    [Route($"[controller]")]
     [ApiController]
     public class PlayerController : ControllerBase
     {
@@ -30,7 +30,7 @@ namespace HandAndFoot.Controllers
         }
 
 
-        [HttpGet("{id:int}")]
+        [HttpGet($"{{id:int}}")]
         public IActionResult GetPlayerDetails(int id)
         {
             try
@@ -51,15 +51,16 @@ namespace HandAndFoot.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost($"account")]
         public IActionResult AddPlayer(PlayerSetAccountDTO playerSetAccountDTO)
         {
             try
             {
+                Console.WriteLine(playerSetAccountDTO);
 
                 _playerService.AddPlayer(playerSetAccountDTO);
 
-                return Ok();
+                return Ok(StatusCode(200));
             }
             catch (Exception ex)
             {
@@ -67,7 +68,7 @@ namespace HandAndFoot.Controllers
             }
         }
 
-        [HttpGet("{id:int}/account")]
+        [HttpGet($"{{id:int}}/account")]
         public IActionResult GetPlayerAccount(int id)
         {
             try
@@ -88,8 +89,8 @@ namespace HandAndFoot.Controllers
         }
 
         // Why [FromBody] here?
-        [HttpPut("{id:int}/account")]
-        public IActionResult UpdatePlayerAccount(int id, PlayerSetAccountDTO playerSetAccountDTO)
+        [HttpPut($"{{id:int}}/account")]
+        public IActionResult UpdatePlayerAccount(int id, [FromBody] PlayerSetAccountDTO playerSetAccountDTO)
         {
 
             try
@@ -99,8 +100,7 @@ namespace HandAndFoot.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-                Console.WriteLine(playerSetAccountDTO);
+                //return StatusCode(500, playerSetAccountDTO);
                 return StatusCode(500, ex.Message);
             }
         }
@@ -126,7 +126,7 @@ namespace HandAndFoot.Controllers
 
 
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete($"{{id:int}}")]
         public IActionResult RemovePlayer(int id)
         {
             try
