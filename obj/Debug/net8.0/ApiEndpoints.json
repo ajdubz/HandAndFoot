@@ -27,22 +27,6 @@
   },
   {
     "ContainingType": "HandAndFoot.Controllers.PlayerController",
-    "Method": "RemovePlayer",
-    "RelativePath": "Player/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "HandAndFoot.Controllers.PlayerController",
     "Method": "GetPlayerAccount",
     "RelativePath": "Player/{id}/account",
     "HttpMethod": "GET",
@@ -80,6 +64,22 @@
   },
   {
     "ContainingType": "HandAndFoot.Controllers.PlayerController",
+    "Method": "RemovePlayer",
+    "RelativePath": "Player/{id}/account",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.PlayerController",
     "Method": "AddPlayer",
     "RelativePath": "Player/account",
     "HttpMethod": "POST",
@@ -89,38 +89,6 @@
       {
         "Name": "playerSetAccountDTO",
         "Type": "HandFootLib.Models.DTOs.Player.PlayerSetAccountDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "HandAndFoot.Controllers.PlayerController",
-    "Method": "AddFriend",
-    "RelativePath": "Player/AddFriend",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "playerFriend",
-        "Type": "HandFootLib.Models.DTOs.Player.PlayerFriendBasicDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "HandAndFoot.Controllers.PlayerController",
-    "Method": "RemoveFriend",
-    "RelativePath": "Player/RemoveFriend",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "playerFriend",
-        "Type": "HandFootLib.Models.DTOs.Player.PlayerFriendBasicDTO",
         "IsRequired": true
       }
     ],

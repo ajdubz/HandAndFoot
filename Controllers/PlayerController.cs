@@ -2,6 +2,7 @@
 using HandFootLib.Models;
 using Microsoft.AspNetCore.Mvc;
 using HandFootLib.Models.DTOs.Player;
+using System.Linq;
 
 namespace HandAndFoot.Controllers
 {
@@ -19,9 +20,15 @@ namespace HandAndFoot.Controllers
         {
             try
             {
-                var oList = _playerService.GetPlayersBasic();
+                var oList = _playerService.GetPlayers();
 
-                return Ok(oList.ToList());
+                var oPlayers = oList.Select(x => new
+                {
+                    x.Id,
+                    x.NickName,
+                });
+
+                return Ok(oPlayers.ToList());
             }
             catch (Exception ex)
             {
@@ -35,7 +42,13 @@ namespace HandAndFoot.Controllers
         {
             try
             {
-                var oPlayer = _playerService.GetPlayer(id);
+                var players = _playerService.GetPlayers();
+                var oPlayer = players.Select(x => new
+                {
+                   x.Id,
+                   x.NickName,
+
+                }).SingleOrDefault(x => x.Id == id);
 
                 if (oPlayer == null)
                 {
@@ -56,8 +69,6 @@ namespace HandAndFoot.Controllers
         {
             try
             {
-                Console.WriteLine(playerSetAccountDTO);
-
                 _playerService.AddPlayer(playerSetAccountDTO);
 
                 return Ok(StatusCode(200));
@@ -73,7 +84,15 @@ namespace HandAndFoot.Controllers
         {
             try
             {
-                var oPlayer = _playerService.GetPlayerAccount(id);
+                var players = _playerService.GetPlayers();
+                var oPlayer = players.Select(x => new
+                {
+                    x.Id,
+                    x.NickName,
+                    x.Email,
+                    x.Password,
+
+                }).SingleOrDefault(x => x.Id == id);
 
                 if (oPlayer == null)
                 {
@@ -88,7 +107,6 @@ namespace HandAndFoot.Controllers
             }
         }
 
-        // Why [FromBody] here?
         [HttpPut($"{{id:int}}/account")]
         public IActionResult UpdatePlayerAccount(int id, [FromBody] PlayerSetAccountDTO playerSetAccountDTO)
         {
@@ -96,27 +114,8 @@ namespace HandAndFoot.Controllers
             try
             {
                 _playerService.UpdatePlayerAccount(id, playerSetAccountDTO);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                //return StatusCode(500, playerSetAccountDTO);
-                return StatusCode(500, ex.Message);
-            }
-        }
 
-
-
-
-
-
-        [HttpPost(nameof(AddFriend))]
-        public IActionResult AddFriend(PlayerFriendBasicDTO playerFriend)
-        {
-            try
-            {
-                _playerService.AddFriend(playerFriend.PlayerId, playerFriend.FriendId);
-                return Ok();
+                return Ok(StatusCode(200));
             }
             catch (Exception ex)
             {
@@ -126,13 +125,35 @@ namespace HandAndFoot.Controllers
 
 
 
-        [HttpDelete($"{{id:int}}")]
+
+        //[HttpPost($"{{id:int}}/friends")]
+        //public IActionResult AddFriendRequest(int id, PlayerFriendBasicDTO playerFriend)
+        //{
+        //    try
+        //    {
+        //        if (id == playerFriend.PlayerId)
+        //        {
+        //            _playerService.AddFriend(playerFriend.PlayerId, playerFriend.FriendId);
+        //        }
+        //        else return NotFound();
+
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex.Message);
+        //    }
+        //}
+
+
+
+        [HttpDelete($"{{id:int}}/account")]
         public IActionResult RemovePlayer(int id)
         {
             try
             {
                 _playerService.RemovePlayer(id);
-                return Ok();
+                return Ok(StatusCode(200));
             }
             catch (Exception ex)
             {
@@ -141,19 +162,24 @@ namespace HandAndFoot.Controllers
         }
 
 
-        [HttpDelete(nameof(RemoveFriend))]
-        public IActionResult RemoveFriend(PlayerFriendBasicDTO playerFriend)
-        {
-            try
-            {
-                _playerService.RemoveFriend(playerFriend.PlayerId, playerFriend.FriendId);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
+        //[HttpDelete($"{{id:int}}/friends")]
+        //public IActionResult RemoveFriendRequest(int id, PlayerFriendBasicDTO playerFriend)
+        //{
+        //    try
+        //    {
+        //        if (id == playerFriend.PlayerId)
+        //        {
+        //            _playerService.RemoveFriend(playerFriend.PlayerId, playerFriend.FriendId);
+        //        }
+        //        else return NotFound();
+
+        //        return Ok();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex.Message);
+        //    }
+        //}
 
     }
 }
