@@ -1,5 +1,95 @@
 [
   {
+    "ContainingType": "HandAndFoot.Controllers.FriendController",
+    "Method": "GetFriends",
+    "RelativePath": "Friend/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.FriendController",
+    "Method": "AcceptFriendRequest",
+    "RelativePath": "Friend/{id}/requestAccept",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "playerFriendBasicDTO",
+        "Type": "HandFootLib.Models.DTOs.Player.PlayerFriendBasicDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.FriendController",
+    "Method": "AddFriendRequest",
+    "RelativePath": "Friend/{id}/requestAdd",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "playerFriendBasicDTO",
+        "Type": "HandFootLib.Models.DTOs.Player.PlayerFriendBasicDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.FriendController",
+    "Method": "GetFriendRequests",
+    "RelativePath": "Friend/{id}/requests",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.FriendController",
+    "Method": "GetFriendRequestsSent",
+    "RelativePath": "Friend/{id}/requestsSent",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "HandAndFoot.Controllers.PlayerController",
     "Method": "GetPlayersBasic",
     "RelativePath": "Player",

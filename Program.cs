@@ -27,6 +27,7 @@ builder.Services.AddDbContext<Data>(op =>
 
 // Add services to the container.
 builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<IFriendsService, FriendsService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IGameService, GameService>();
 
