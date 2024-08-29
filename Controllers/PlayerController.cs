@@ -3,6 +3,7 @@ using HandFootLib.Models;
 using Microsoft.AspNetCore.Mvc;
 using HandFootLib.Models.DTOs.Player;
 using System.Linq;
+using HandFootLib.Services;
 
 namespace HandAndFoot.Controllers
 {
@@ -12,7 +13,12 @@ namespace HandAndFoot.Controllers
     {
 
         private readonly IPlayerService _playerService;
-        public PlayerController(IPlayerService playerService) => _playerService = playerService;
+        private readonly IFriendsService _friendService;
+        public PlayerController(IPlayerService playerService, IFriendsService friendService)
+        {
+            _playerService = playerService;
+            _friendService = friendService;
+        }
 
 
         [HttpGet]
@@ -125,28 +131,6 @@ namespace HandAndFoot.Controllers
 
 
 
-
-        //[HttpPost($"{{id:int}}/friends")]
-        //public IActionResult AddFriendRequest(int id, PlayerFriendBasicDTO playerFriend)
-        //{
-        //    try
-        //    {
-        //        if (id == playerFriend.PlayerId)
-        //        {
-        //            _playerService.AddFriend(playerFriend.PlayerId, playerFriend.FriendId);
-        //        }
-        //        else return NotFound();
-
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex.Message);
-        //    }
-        //}
-
-
-
         [HttpDelete($"{{id:int}}/account")]
         public IActionResult RemovePlayer(int id)
         {
@@ -162,24 +146,146 @@ namespace HandAndFoot.Controllers
         }
 
 
-        //[HttpDelete($"{{id:int}}/friends")]
-        //public IActionResult RemoveFriendRequest(int id, PlayerFriendBasicDTO playerFriend)
-        //{
-        //    try
-        //    {
-        //        if (id == playerFriend.PlayerId)
-        //        {
-        //            _playerService.RemoveFriend(playerFriend.PlayerId, playerFriend.FriendId);
-        //        }
-        //        else return NotFound();
 
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex.Message);
-        //    }
-        //}
+
+
+        [HttpGet($"search/{{searchText}}")]
+        public IActionResult SearchPlayer(int id, string searchText)
+        {
+
+            var oList = _playerService.GetPlayers();
+
+            var oPlayers = oList.Select(x => new
+            {
+                x.Id,
+                x.NickName,
+            }).Where(x => x.NickName.Contains(searchText));
+
+
+
+            return Ok(oPlayers.ToList());
+        }
+
+        [HttpGet($"friendSearch/{{searchText}}")]
+        public IActionResult SearchNewFriends(int id, string searchText)
+        {
+
+            var oList = _playerService.GetPlayers();
+
+            var player = oList.Where(x => x.Id == id);
+
+
+            var oPlayers = oList.Select(x => new
+            {
+                x.Id,
+                x.NickName,
+            }).Where(x => x.NickName.Contains(searchText) && x.Id != id);
+
+
+
+            return Ok(oPlayers.ToList());
+        }
+
+
+
+        [HttpGet($"{{id:int}}/friends")]
+        public IActionResult GetFriends(int id)
+        {
+            try
+            {
+                var getFriends = _friendService.GetFriends(id);
+
+                var friends = getFriends.Select(x => new
+                {
+                    x.Id,
+                    x.NickName,
+                });
+
+                return Ok(friends.ToList());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet($"{{id:int}}/friendRequests")]
+        public IActionResult GetFriendRequests(int id)
+        {
+            try
+            {
+                var getFriendRequests = _friendService.GetFriendRequests(id);
+
+                var friendRequests = getFriendRequests.Select(x => new
+                {
+                    x.Id,
+                    x.NickName,
+                });
+
+                Console.WriteLine(id);
+
+                return Ok(friendRequests.ToList());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet($"{{id:int}}/requestsSent")]
+        public IActionResult GetFriendRequestsSent(int id)
+        {
+            try
+            {
+                var getFriendRequests = _friendService.GetFriendRequestsSent(id);
+
+                var friendRequests = getFriendRequests.Select(x => new
+                {
+                    x.Id,
+                    x.NickName,
+                });
+
+                return Ok(friendRequests.ToList());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost($"{{id:int}}/requestAdd")]
+        public IActionResult AddFriendRequest(int id, PlayerFriendBasicDTO playerFriendBasicDTO)
+        {
+            try
+            {
+                _friendService.AddFriendRequest(id, playerFriendBasicDTO.FriendId);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+        [HttpPost($"{{id:int}}/requestAccept")]
+        public IActionResult AcceptFriendRequest(int id, PlayerFriendBasicDTO playerFriendBasicDTO)
+        {
+            try
+            {
+                _friendService.AcceptFriendRequest(playerFriendBasicDTO.PlayerId, id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
+
 
     }
 }

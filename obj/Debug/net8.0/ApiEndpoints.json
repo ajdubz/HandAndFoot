@@ -170,6 +170,96 @@
   },
   {
     "ContainingType": "HandAndFoot.Controllers.PlayerController",
+    "Method": "GetFriendRequests",
+    "RelativePath": "Player/{id}/friendRequests",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.PlayerController",
+    "Method": "GetFriends",
+    "RelativePath": "Player/{id}/friends",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.PlayerController",
+    "Method": "AcceptFriendRequest",
+    "RelativePath": "Player/{id}/requestAccept",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "playerFriendBasicDTO",
+        "Type": "HandFootLib.Models.DTOs.Player.PlayerFriendBasicDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.PlayerController",
+    "Method": "AddFriendRequest",
+    "RelativePath": "Player/{id}/requestAdd",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "playerFriendBasicDTO",
+        "Type": "HandFootLib.Models.DTOs.Player.PlayerFriendBasicDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.PlayerController",
+    "Method": "GetFriendRequestsSent",
+    "RelativePath": "Player/{id}/requestsSent",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.PlayerController",
     "Method": "AddPlayer",
     "RelativePath": "Player/account",
     "HttpMethod": "POST",
@@ -179,6 +269,48 @@
       {
         "Name": "playerSetAccountDTO",
         "Type": "HandFootLib.Models.DTOs.Player.PlayerSetAccountDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.PlayerController",
+    "Method": "SearchNewFriends",
+    "RelativePath": "Player/friendSearch/{searchText}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "searchText",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.PlayerController",
+    "Method": "SearchPlayer",
+    "RelativePath": "Player/search/{searchText}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "searchText",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
