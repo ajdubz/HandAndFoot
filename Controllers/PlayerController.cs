@@ -150,7 +150,7 @@ namespace HandAndFoot.Controllers
 
 
         [HttpGet($"search/{{searchText}}")]
-        public IActionResult SearchPlayer(int id, string searchText)
+        public IActionResult SearchPlayer(string searchText)
         {
 
             var oList = _playerService.GetPlayers();
@@ -159,29 +159,38 @@ namespace HandAndFoot.Controllers
             {
                 x.Id,
                 x.NickName,
-            }).Where(x => x.NickName.Contains(searchText));
+
+            }).Where(x => x.NickName != null && x.NickName.Contains(searchText));
 
 
 
             return Ok(oPlayers.ToList());
         }
 
-        [HttpGet($"friendSearch/{{searchText}}")]
+        [HttpGet($"{{id:int}}/friendSearch/{{searchText}}")]
         public IActionResult SearchNewFriends(int id, string searchText)
         {
 
             var oList = _playerService.GetPlayers();
-
-            var player = oList.Where(x => x.Id == id);
 
 
             var oPlayers = oList.Select(x => new
             {
                 x.Id,
                 x.NickName,
-            }).Where(x => x.NickName.Contains(searchText) && x.Id != id);
+
+            }).Where(x => x.NickName != null && x.NickName.Contains(searchText) && x.Id != id);
 
 
+            var playerFriends = _friendService.GetFriends(id);
+            //var playerFriends = _friendService.GetFriends(id).Select(x => new
+            //{
+            //    x.Id,
+            //    x.NickName,
+
+            //});
+
+            oPlayers = oPlayers.Where(x => !playerFriends.Any(pf => pf.Id == x.Id));
 
             return Ok(oPlayers.ToList());
         }
