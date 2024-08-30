@@ -179,18 +179,12 @@ namespace HandAndFoot.Controllers
                 x.Id,
                 x.NickName,
 
-            }).Where(x => x.NickName != null && x.NickName.Contains(searchText) && x.Id != id);
+            }).Where(x => x.NickName != null && x.NickName.Contains(searchText));
 
 
             var playerFriends = _friendService.GetFriends(id);
-            //var playerFriends = _friendService.GetFriends(id).Select(x => new
-            //{
-            //    x.Id,
-            //    x.NickName,
 
-            //});
-
-            oPlayers = oPlayers.Where(x => !playerFriends.Any(pf => pf.Id == x.Id));
+            oPlayers = oPlayers.Where(x => x.Id != id && !playerFriends.Any(pf => pf.Id == x.Id));
 
             return Ok(oPlayers.ToList());
         }
@@ -278,12 +272,12 @@ namespace HandAndFoot.Controllers
         }
 
 
-        [HttpPost($"{{id:int}}/requestAccept")]
+        [HttpPut($"{{id:int}}/requestAccept")]
         public IActionResult AcceptFriendRequest(int id, PlayerFriendBasicDTO playerFriendBasicDTO)
         {
             try
             {
-                _friendService.AcceptFriendRequest(playerFriendBasicDTO.PlayerId, id);
+                _friendService.AcceptFriendRequest(playerFriendBasicDTO.FriendId, id);
 
                 return Ok();
             }

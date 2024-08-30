@@ -225,7 +225,7 @@
     "ContainingType": "HandAndFoot.Controllers.PlayerController",
     "Method": "AcceptFriendRequest",
     "RelativePath": "Player/{id}/requestAccept",
-    "HttpMethod": "POST",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
