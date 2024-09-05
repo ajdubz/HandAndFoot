@@ -1,11 +1,13 @@
 ﻿using HandFootLib.Models;
 using HandFootLib.Models.DTOs.Player;
 using HandFootLib.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HandAndFoot.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class FriendController : ControllerBase

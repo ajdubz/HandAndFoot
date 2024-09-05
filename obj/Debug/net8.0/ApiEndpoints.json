@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "HandAndFoot.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginGetDTO",
+        "Type": "HandFootLib.Models.DTOs.LoginGetDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "HandAndFoot.Controllers.FriendController",
     "Method": "GetFriends",
     "RelativePath": "Friend/{id}",
@@ -170,6 +186,27 @@
   },
   {
     "ContainingType": "HandAndFoot.Controllers.PlayerController",
+    "Method": "SearchCurrentFriends",
+    "RelativePath": "Player/{id}/currFriendSearch/{searchText}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "searchText",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.PlayerController",
     "Method": "GetFriendRequests",
     "RelativePath": "Player/{id}/friendRequests",
     "HttpMethod": "GET",
@@ -203,7 +240,7 @@
   {
     "ContainingType": "HandAndFoot.Controllers.PlayerController",
     "Method": "SearchNewFriends",
-    "RelativePath": "Player/{id}/friendSearch/{searchText}",
+    "RelativePath": "Player/{id}/newFriendSearch/{searchText}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

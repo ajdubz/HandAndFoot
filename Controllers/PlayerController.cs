@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using HandFootLib.Models.DTOs.Player;
 using System.Linq;
 using HandFootLib.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HandAndFoot.Controllers
 {
+    [Authorize]
     [Route($"[controller]")]
     [ApiController]
     public class PlayerController : ControllerBase
@@ -21,6 +23,7 @@ namespace HandAndFoot.Controllers
         }
 
 
+        //[AllowAnonymous] to skip validation
         [HttpGet]
         public IActionResult GetPlayersBasic()
         {
@@ -167,26 +170,59 @@ namespace HandAndFoot.Controllers
             return Ok(oPlayers.ToList());
         }
 
-        [HttpGet($"{{id:int}}/friendSearch/{{searchText}}")]
+        [HttpGet($"{{id:int}}/newFriendSearch/{{searchText}}")]
         public IActionResult SearchNewFriends(int id, string searchText)
         {
 
-            var oList = _playerService.GetPlayers();
-
-
-            var oPlayers = oList.Select(x => new
+            try
             {
-                x.Id,
-                x.NickName,
-
-            }).Where(x => x.NickName != null && x.NickName.Contains(searchText));
+                var oList = _playerService.GetPlayers();
 
 
-            var playerFriends = _friendService.GetFriends(id);
+                var oPlayers = oList.Select(x => new
+                {
+                    x.Id,
+                    x.NickName,
 
-            oPlayers = oPlayers.Where(x => x.Id != id && !playerFriends.Any(pf => pf.Id == x.Id));
+                }).Where(x => x.NickName != null && x.NickName.Contains(searchText));
 
-            return Ok(oPlayers.ToList());
+
+                var playerFriends = _friendService.GetFriends(id);
+
+                oPlayers = oPlayers.Where(x => x.Id != id && !playerFriends.Any(pf => pf.Id == x.Id));
+
+                return Ok(oPlayers.ToList());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+
+        [HttpGet($"{{id:int}}/currFriendSearch/{{searchText}}")]
+        public IActionResult SearchCurrentFriends(int id, string searchText)
+        {
+
+            try
+            {
+                var oList = _friendService.GetFriends(id);
+
+
+                var oPlayers = oList.Select(x => new
+                {
+                    x.Id,
+                    x.NickName,
+
+                }).Where(x => x.NickName != null && x.NickName.Contains(searchText));
+
+                return Ok(oPlayers.ToList());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
 
 
@@ -261,6 +297,7 @@ namespace HandAndFoot.Controllers
         {
             try
             {
+                Console.WriteLine(playerFriendBasicDTO.FriendId);
                 _friendService.AddFriendRequest(id, playerFriendBasicDTO.FriendId);
 
                 return Ok();
