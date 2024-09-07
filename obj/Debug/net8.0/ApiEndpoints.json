@@ -376,41 +376,9 @@
   },
   {
     "ContainingType": "HandAndFoot.Controllers.TeamController",
-    "Method": "UpdateTeam",
-    "RelativePath": "Team",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "team",
-        "Type": "HandFootLib.Models.DTOs.Team.TeamUpdateDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "HandAndFoot.Controllers.TeamController",
     "Method": "GetTeam",
     "RelativePath": "Team/{id}",
     "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "HandAndFoot.Controllers.TeamController",
-    "Method": "RemoveTeam",
-    "RelativePath": "Team/{id}",
-    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -445,21 +413,16 @@
   },
   {
     "ContainingType": "HandAndFoot.Controllers.TeamController",
-    "Method": "RemovePlayerFromTeam",
-    "RelativePath": "Team/RemovePlayerFromTeam",
-    "HttpMethod": "PUT",
+    "Method": "SearchTeams",
+    "RelativePath": "Team/search/{searchText}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "playerId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "teamId",
-        "Type": "System.Int32",
-        "IsRequired": false
+        "Name": "searchText",
+        "Type": "System.String",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

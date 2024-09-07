@@ -16,10 +16,12 @@ namespace HandAndFoot.Controllers
 
         private readonly IPlayerService _playerService;
         private readonly IFriendsService _friendService;
-        public PlayerController(IPlayerService playerService, IFriendsService friendService)
+        private readonly ILogger<PlayerController> _logger;
+        public PlayerController(IPlayerService playerService, IFriendsService friendService, ILogger<PlayerController> logger)
         {
             _playerService = playerService;
             _friendService = friendService;
+            _logger = logger;
         }
 
 
@@ -29,6 +31,7 @@ namespace HandAndFoot.Controllers
         {
             try
             {
+                _logger.LogDebug("good in GetPlayersBasic");
                 var oList = _playerService.GetPlayers();
 
                 var oPlayers = oList.Select(x => new
@@ -41,6 +44,7 @@ namespace HandAndFoot.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogDebug(ex, "Error in GetPlayersBasic");
                 return StatusCode(500, ex.Message);
             }
         }
@@ -51,6 +55,7 @@ namespace HandAndFoot.Controllers
         {
             try
             {
+                _logger.LogInformation("in GetPlayersBasic {id}", id);
                 var players = _playerService.GetPlayers();
                 var oPlayer = players.Select(x => new
                 {
@@ -68,6 +73,7 @@ namespace HandAndFoot.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error in GetPlayersBasic {id}", id);
                 return StatusCode(500, ex.Message);
             }
         }
@@ -156,18 +162,23 @@ namespace HandAndFoot.Controllers
         public IActionResult SearchPlayer(string searchText)
         {
 
-            var oList = _playerService.GetPlayers();
-
-            var oPlayers = oList.Select(x => new
+            try
             {
-                x.Id,
-                x.NickName,
+                var oList = _playerService.GetPlayers();
 
-            }).Where(x => x.NickName != null && x.NickName.Contains(searchText));
+                var oPlayers = oList.Select(x => new
+                {
+                    x.Id,
+                    x.NickName,
 
+                }).Where(x => x.NickName != null && x.NickName.Contains(searchText));
 
-
-            return Ok(oPlayers.ToList());
+                return Ok(oPlayers.ToList());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpGet($"{{id:int}}/newFriendSearch/{{searchText}}")]
@@ -206,22 +217,41 @@ namespace HandAndFoot.Controllers
 
             try
             {
+                var tempPlayers = _playerService.GetPlayers();
+                var oPlayer = tempPlayers.Select(x => new
+                {
+                    x.Id,
+                    x.NickName,
+
+                }).SingleOrDefault(x => x.Id == id);
+
+                if (oPlayer == null)
+                {
+                    return NotFound();
+                }
+
                 var oList = _friendService.GetFriends(id);
 
+                //oList.Add(oPlayer);
 
                 var oPlayers = oList.Select(x => new
                 {
                     x.Id,
                     x.NickName,
-
                 }).Where(x => x.NickName != null && x.NickName.Contains(searchText));
 
-                return Ok(oPlayers.ToList());
+                oPlayers.ToList().Add(oPlayer);
+
+                return Ok(oPlayers);
             }
             catch (Exception ex)
             {
+                // Log the exception message and stack trace
+                Console.WriteLine($"Exception: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
                 return StatusCode(500, ex.Message);
             }
+
 
         }
 

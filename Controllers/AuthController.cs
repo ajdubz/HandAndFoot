@@ -23,8 +23,13 @@ namespace HandAndFoot.Controllers
     {
 
         private readonly IUserService _userService;
+        private readonly ILogger<AuthController> _logger;
 
-        public AuthController(IUserService userService) => _userService = userService;
+        public AuthController(IUserService userService, ILogger<AuthController> logger)
+        {
+            _userService = userService;
+            _logger = logger;
+        }
 
 
         [AllowAnonymous] // to skip validation
