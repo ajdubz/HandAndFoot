@@ -26,6 +26,7 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
+                    x.FullName,
                 });
 
                 return Ok(friends.ToList());
@@ -47,6 +48,7 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
+                    x.FullName,
                 });
 
                 Console.WriteLine(id);
@@ -70,6 +72,7 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
+                    x.FullName,
                 });
 
                 return Ok(friendRequests.ToList());

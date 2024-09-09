@@ -38,6 +38,7 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
+                    x.FullName,
                 });
 
                 return Ok(oPlayers.ToList());
@@ -61,6 +62,7 @@ namespace HandAndFoot.Controllers
                 {
                    x.Id,
                    x.NickName,
+                   x.FullName,
 
                 }).SingleOrDefault(x => x.Id == id);
 
@@ -104,6 +106,7 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
+                    x.FullName,
                     x.Email,
                     x.Password,
 
@@ -170,8 +173,9 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
+                    x.FullName,
 
-                }).Where(x => x.NickName != null && x.NickName.Contains(searchText));
+                }).Where(x => x.NickName != null && x.FullName != null && (x.NickName.Contains(searchText) || x.FullName.Contains(searchText)));
 
                 return Ok(oPlayers.ToList());
             }
@@ -194,8 +198,9 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
+                    x.FullName,
 
-                }).Where(x => x.NickName != null && x.NickName.Contains(searchText));
+                }).Where(x => x.NickName != null && x.FullName != null && (x.NickName.Contains(searchText) || x.FullName.Contains(searchText)));
 
 
                 var playerFriends = _friendService.GetFriends(id);
@@ -222,6 +227,7 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
+                    x.FullName,
 
                 }).SingleOrDefault(x => x.Id == id);
 
@@ -238,7 +244,9 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
-                }).Where(x => x.NickName != null && x.NickName.Contains(searchText));
+                    x.FullName,
+
+                }).Where(x => x.NickName != null && x.FullName != null && (x.NickName.Contains(searchText) || x.FullName.Contains(searchText)));
 
                 oPlayers.ToList().Add(oPlayer);
 
@@ -268,6 +276,7 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
+                    x.FullName,
                 });
 
                 return Ok(friends.ToList());
@@ -289,6 +298,7 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
+                    x.FullName,
                 });
 
                 Console.WriteLine(id);
@@ -312,6 +322,7 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.NickName,
+                    x.FullName,
                 });
 
                 return Ok(friendRequests.ToList());
