@@ -39,9 +39,11 @@ namespace HandAndFoot.Controllers
 
             try
             {
-                var loginToken = _userService.Login(loginGetDTO);
+                var loginFoundUser = _userService.Login(loginGetDTO);
 
-                return Ok(loginToken);
+
+
+                return Ok(new { loginFoundUser.Id, loginFoundUser.NickName, loginFoundUser.Email, loginFoundUser.Token });
 
             }
             catch (Exception ex)
