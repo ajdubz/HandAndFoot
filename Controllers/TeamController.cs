@@ -43,6 +43,22 @@ namespace HandAndFoot.Controllers
             
         }
 
+        [HttpGet("Names")]
+        public IActionResult GetTeamsWithPlayerNames()
+        {
+            try
+            {
+                var teams = _teamService.GetTeamsWithPlayerNames();
+
+                return Ok(teams.ToList());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
+
         [HttpGet("{id:int}")]
         public IActionResult GetTeam(int id)
         {
@@ -73,9 +89,11 @@ namespace HandAndFoot.Controllers
         {
             try
             {
-                _teamService.AddTeam(teamDTO);
+                var newTeam = _teamService.AddTeam(teamDTO);
 
-                return Ok();
+                //_logger.LogWarning(teamDTO.Id.ToString());
+
+                return Ok(newTeam);
             }
             catch (Exception ex)
             {
@@ -83,14 +101,14 @@ namespace HandAndFoot.Controllers
             }
         }
 
-        [HttpPut("AddPlayerToTeam")]
-        public IActionResult AddPlayerToTeam(int playerId, int teamId)
+        [HttpPost("Player")]
+        public IActionResult AddPlayersToTeam(AddPlayersToTeamDTO addPlayersToTeam)
         {
             try
             {
-                _teamService.AddPlayerToTeam(playerId, teamId);
+                var playerTeam = _teamService.AddPlayersToTeam(addPlayersToTeam);
 
-                return Ok();
+                return Ok(playerTeam);
             }
             catch (Exception ex)
             {
@@ -123,30 +141,53 @@ namespace HandAndFoot.Controllers
                 return StatusCode(500, ex.Message);
             }
 
+        }
+
+        [HttpGet($"search/{{inId}}-{{searchText}}")]
+        public IActionResult SearchPlayerTeams(int inId, string searchText)
+        {
+
+            try
+            {
+                var oList = _teamService.GetPlayerTeams(inId);
+
+                var oTeams = oList.Select(x => new
+                {
+                    x.Id,
+                    x.Name,
+                    x.PlayerNickNames
+                }).Where(x => x.Name != null && x.Name.Contains(searchText));
+
+                return Ok(oTeams.ToList());
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception here
+                // You can log the exception or perform any other necessary actions
+                // For example:
+                _logger.LogError(ex, "An error occurred while searching for teams");
+                return StatusCode(500, ex.Message);
+            }
 
         }
 
-        //[HttpPut]
-        //public IActionResult UpdateTeam(TeamUpdateDTO team)
-        //{
-        //    _teamService.UpdateTeam(team);
-        //    return Ok("Updated Successfully");
-        //}
+        [HttpGet($"Players/{{playerIds}}")]
+        public IActionResult GetTeamByPlayerIds([FromQuery] GetTeamByPlayerIds playerIds)
+        {
+            try
+            {
+                var teams = _teamService.GetTeamByPlayerIds(playerIds);
 
-        //[HttpPut("RemovePlayerFromTeam")]
-        //public IActionResult RemovePlayerFromTeam(int playerId, int teamId)
-        //{
-        //    _teamService.RemovePlayerFromTeam(playerId, teamId);
-        //    return Ok("Removed Successfully");
-        //}
+                var teamsList = teams.Select(x => new { x.Id, x.Name });
 
+                return Ok(teamsList.ToList());
 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
-        //[HttpDelete("{id:int}")]
-        //public IActionResult RemoveTeam(int id)
-        //{
-        //    _teamService.RemoveTeam(id);
-        //    return Ok("Deleted Successfully");
-        //}
     }
 }

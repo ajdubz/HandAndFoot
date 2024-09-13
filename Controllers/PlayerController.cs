@@ -31,7 +31,7 @@ namespace HandAndFoot.Controllers
         {
             try
             {
-                _logger.LogDebug("good in GetPlayersBasic");
+                //_logger.LogDebug("good in GetPlayersBasic");
                 var oList = _playerService.GetPlayers();
 
                 var oPlayers = oList.Select(x => new
@@ -56,7 +56,7 @@ namespace HandAndFoot.Controllers
         {
             try
             {
-                _logger.LogInformation("in GetPlayersBasic {id}", id);
+                //_logger.LogInformation("in GetPlayersBasic {id}", id);
                 var players = _playerService.GetPlayers();
                 var oPlayer = players.Select(x => new
                 {
@@ -86,9 +86,24 @@ namespace HandAndFoot.Controllers
         {
             try
             {
-                _playerService.AddPlayer(playerSetAccountDTO);
+                var newPlayer = _playerService.AddPlayer(playerSetAccountDTO);
 
-                return Ok(StatusCode(200));
+                return Ok(newPlayer);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost($"guest")]
+        public IActionResult AddGuest(PlayerSetAccountDTO playerSetAccountDTO)
+        {
+            try
+            {
+                var newPlayer = _playerService.AddPlayer(playerSetAccountDTO);
+
+                return Ok(newPlayer);
             }
             catch (Exception ex)
             {

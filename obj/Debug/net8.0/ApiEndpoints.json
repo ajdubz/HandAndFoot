@@ -334,6 +334,22 @@
   },
   {
     "ContainingType": "HandAndFoot.Controllers.PlayerController",
+    "Method": "AddGuest",
+    "RelativePath": "Player/guest",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "playerSetAccountDTO",
+        "Type": "HandFootLib.Models.DTOs.Player.PlayerSetAccountDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.PlayerController",
     "Method": "SearchPlayer",
     "RelativePath": "Player/search/{searchText}",
     "HttpMethod": "GET",
@@ -392,21 +408,73 @@
   },
   {
     "ContainingType": "HandAndFoot.Controllers.TeamController",
-    "Method": "AddPlayerToTeam",
-    "RelativePath": "Team/AddPlayerToTeam",
-    "HttpMethod": "PUT",
+    "Method": "GetTeamsWithPlayerNames",
+    "RelativePath": "Team/Names",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.TeamController",
+    "Method": "AddPlayersToTeam",
+    "RelativePath": "Team/Player",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "playerId",
+        "Name": "addPlayersToTeam",
+        "Type": "HandFootLib.Models.DTOs.Team.AddPlayersToTeamDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.TeamController",
+    "Method": "GetTeamByPlayerIds",
+    "RelativePath": "Team/Players/{playerIds}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "PlayerId1",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "teamId",
-        "Type": "System.Int32",
+        "Name": "PlayerId2",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
+      },
+      {
+        "Name": "playerIds",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.TeamController",
+    "Method": "SearchPlayerTeams",
+    "RelativePath": "Team/search/{inId}-{searchText}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "inId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "searchText",
+        "Type": "System.String",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
