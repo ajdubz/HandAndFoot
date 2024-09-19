@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "loginGetDTO",
-        "Type": "HandFootLib.Models.DTOs.LoginGetDTO",
+        "Type": "HandFootLib.Models.DTOs.Login.LoginGetDTO",
         "IsRequired": true
       }
     ],
@@ -100,6 +100,106 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.GameController",
+    "Method": "GetAllGames",
+    "RelativePath": "Game",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.GameController",
+    "Method": "AddGame",
+    "RelativePath": "Game",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "gameAddDTO",
+        "Type": "HandFootLib.Models.DTOs.Game.GameAddDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.GameController",
+    "Method": "GetTeamsByGameId",
+    "RelativePath": "Game/{gameId}/team",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "gameId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.GameController",
+    "Method": "AddTeamToGame",
+    "RelativePath": "Game/{gameId}/team/{teamId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "gameId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "teamId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.GameController",
+    "Method": "GetGame",
+    "RelativePath": "Game/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.GameController",
+    "Method": "GetRoundsByGameId",
+    "RelativePath": "Game/{id}/round",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "gameId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "",
         "IsRequired": true
       }
     ],

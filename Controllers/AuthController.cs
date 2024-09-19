@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using HandFootLib.Models.DTOs;
 using HandFootLib.Services.Interfaces;
+using HandFootLib.Models.DTOs.Login;
 
 namespace HandAndFoot.Controllers
 {

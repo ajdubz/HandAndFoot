@@ -155,7 +155,7 @@ namespace HandAndFoot.Controllers
                 {
                     x.Id,
                     x.Name,
-                    x.PlayerNickNames
+                    x.TeamMembers
                 }).Where(x => x.Name != null && x.Name.Contains(searchText));
 
                 return Ok(oTeams.ToList());
