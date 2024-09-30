@@ -133,6 +133,22 @@
   },
   {
     "ContainingType": "HandAndFoot.Controllers.GameController",
+    "Method": "GetRoundsByGameId",
+    "RelativePath": "Game/{gameId}/round",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "gameId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.GameController",
     "Method": "GetTeamsByGameId",
     "RelativePath": "Game/{gameId}/team",
     "HttpMethod": "GET",
@@ -179,27 +195,6 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "HandAndFoot.Controllers.GameController",
-    "Method": "GetRoundsByGameId",
-    "RelativePath": "Game/{id}/round",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "gameId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "id",
-        "Type": "",
         "IsRequired": true
       }
     ],
@@ -485,6 +480,22 @@
       {
         "Name": "teamDTO",
         "Type": "HandFootLib.Models.DTOs.Team.TeamCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HandAndFoot.Controllers.TeamController",
+    "Method": "GetRoundsByTeamId",
+    "RelativePath": "Team/{gameTeamId}/round",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "gameTeamId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

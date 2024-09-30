@@ -59,7 +59,7 @@ namespace HandAndFoot.Controllers
         {
             try
             {
-                _logger.LogWarning(gameId.ToString());
+                //_logger.LogWarning(gameId.ToString());
 
                 var teams = _gameService.GetTeamsByGameId(gameId);
                 return Ok(teams);
@@ -71,7 +71,7 @@ namespace HandAndFoot.Controllers
             }
         }
 
-        [HttpGet($"{{id:int}}/round")]
+        [HttpGet($"{{gameId:int}}/round")]
         public IActionResult GetRoundsByGameId(int gameId)
         {
             try

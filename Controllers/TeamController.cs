@@ -189,5 +189,21 @@ namespace HandAndFoot.Controllers
             }
         }
 
+        [HttpGet($"{{gameTeamId:int}}/round")]
+        public IActionResult GetRoundsByTeamId(int gameTeamId)
+        {
+            try
+            {
+                var rounds = _teamService.GetRoundsByTeamId(gameTeamId);
+
+                return Ok(rounds.ToList());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
     }
 }
